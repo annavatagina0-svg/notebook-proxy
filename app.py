@@ -49,11 +49,13 @@ def add_cors(response):
     return response
 
 
-@app.route('/', methods=['GET', 'POST', 'OPTIONS'])
-def proxy():
-    if request.method == 'OPTIONS':
-        return Response('', status=200)
+@app.route('/', methods=['OPTIONS'])
+def options():
+    return Response('', status=200)
 
+
+@app.route('/')
+def proxy():
     target = request.args.get('url')
     path = request.args.get('path')
     token = request.args.get('token')
